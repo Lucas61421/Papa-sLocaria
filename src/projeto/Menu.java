@@ -195,16 +195,26 @@ public class Menu {
 		
 		System.out.print("\t 𝝣「 ✏ 」➜ Escolha: "); escolha = teclado.nextInt();
 		do {
+			ArrayList<Filme> filmeAdd = new ArrayList<>();
 			switch (escolha) {
 				case 1:
+					String continuarAdicionando;
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-				ArrayList<Filme> filmeAdd = new ArrayList<>();
-				acervo.adicionarFilme(filmeAdd); 
+					do {
+						acervo.adicionarFilme(filmeAdd); 
+						System.out.print("\t 𝝣「 ↩ 」➜ Deseja adicionar outro filme? (s/n): "); continuarAdicionando = teclado.nextLine();
+						teclado.nextLine();
+					} while (continuarAdicionando.equalsIgnoreCase("s"));
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					break;
 				case 2:
+					String continuarRemovendo;
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-					
+					do {
+						//acervo.adicionarFilme(filmeAdd); 
+						System.out.print("\t 𝝣「 ↩ 」➜ Deseja remover outro filme? (s/n): "); continuarRemovendo = teclado.nextLine();
+						teclado.nextLine();
+					} while (continuarRemovendo.equalsIgnoreCase("s"));
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					break;
 				case 3:
