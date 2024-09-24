@@ -69,17 +69,7 @@ public class Menu {
 		Gerente gerente = new Gerente("123.123.123-12", "Yotra", "esprega#esprega", 12345678 , "yotraesprega@gmail.com", 
 				"Xangai", "Fubuki", "Liberdade", 23);
 		ArrayList<Cliente> clientesInput = new ArrayList<>();
-		
-		System.out.print("\t 𝝣「 🪪 」➜Verificar pelo CPF: "); String cpf = teclado.nextLine();
-		
-		for (Cliente cliente : clientes) {
-	        if (cliente.getCpf().equals(cpf)) {
-	            System.out.println("\n\t 𝝣「 ✔ 」➜ Cliente já cadastrado! Redirecionando para o menu de seleções.");
-	            atendimentoGerente();
-	            return cliente; 
-	        }
-	    }
-		System.out.println("\t 𝝣「 ✔ 」➜ Criando novo cadastro...");
+
 		Cliente novoCliente = gerente.criarCadastro(teclado, clientesInput);  
 	    clientes.add(novoCliente);  
 	    System.out.println("\n\t 𝝣「 ✔ 」➜ Cliente já cadastrado! Redirecionando para o menu de seleções.");
@@ -88,7 +78,7 @@ public class Menu {
 		System.out.print("\t 𝝣「 ✏ 」➜ Escolha: "); int escolha = teclado.nextInt();
 		teclado.nextLine();
 	    Acervo acervo = new Acervo();
-	    Filme filme = null; 
+	    Filme filme;
 	    
 		do {
 			switch (escolha) {
@@ -118,31 +108,40 @@ public class Menu {
 					return novoCliente;
 				case 4:
 					String continuarAlugando;
-					Cliente clienteSelecionado = novoCliente; 
+				    Cliente clienteSelecionado = novoCliente; 
 				    Transacao transacao = new Transacao(10, LocalDate.now(), LocalDate.now().plusDays(15), 0.0, 0, clienteSelecionado);
-					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-					do {
-						System.out.print("\t 𝝣「 ✏ 」➜ Digite o título do filme que deseja alugar: "); String tituloInput = teclado.nextLine();
-					    transacao.gerarNotaFiscal(tituloInput, acervo);
-						System.out.print("\t 𝝣「 ↩ 」➜ Deseja alugar outro filme? (s/n): ");
+				    System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
+				    do {
+				        System.out.print("\t 𝝣「 ✏ 」➜ Digite o título do filme que deseja alugar: "); 
+				        String tituloInput = teclado.nextLine();
+				        transacao.gerarNotaFiscal(tituloInput, acervo);
+				        System.out.print("\t 𝝣「 ↩ 」➜ Deseja alugar outro filme? (s/n): ");
 				        continuarAlugando = teclado.nextLine();
-					} while (continuarAlugando.equalsIgnoreCase("s"));
-					String continuarDevolvendo;
-					do {
-						System.out.print("\t 𝝣「 ✏ 」➜ Digite o título do filme que deseja devolver: "); String tituloInput = teclado.nextLine();
-						DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-						System.out.print("\t 𝝣「 ✏ 」➜ Digite a data que você devolveu(DD/MM/AAAA): "); String data = teclado.next();
-						LocalDate dataDevolvido = LocalDate.parse(data, dataFormato);
-						transacao.getDataDevolver();
-						if (dataDevolvido.isAfter(transacao.getDataDevolver())) {
-							gerente.setMultado(true);
-							System.out.print("\t 𝝣「 ⚠VEACO⚠ 」➜ Aviso! Você foi multado"); 
-						}
-					    novoCliente.devolverFilme(filme);
-						System.out.print("\n\t 𝝣「 ↩ 」➜ Deseja devolver outro filme? (s/n): "); 
-						continuarDevolvendo = teclado.nextLine();
-					} while (continuarDevolvendo.equalsIgnoreCase("s")); 
-					
+				    } while (continuarAlugando.equalsIgnoreCase("s"));
+				    
+				    String continuarDevolvendo;
+				    do {
+				        System.out.print("\t 𝝣「 ✏ 」➜ Digite o título do filme que deseja devolver: "); 
+				        String tituloInputDevolucao = teclado.nextLine();
+				        
+				        Filme filmeF = acervo.procurarFilme(tituloInputDevolucao);
+				        
+				        if (filmeF != null) {
+				            DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				            System.out.print("\t 𝝣「 ✏ 」➜ Digite a data que você devolveu (DD/MM/AAAA): "); 
+				            String data = teclado.next();
+				            LocalDate dataDevolvido = LocalDate.parse(data, dataFormato);
+				            transacao.getDataDevolver();
+				            if (dataDevolvido.isAfter(transacao.getDataDevolver())) {
+				                gerente.setMultado(true);
+				                System.out.print("\t 𝝣「 ⚠VEACO⚠ 」➜ Aviso! Você foi multado"); 
+				            }
+				            novoCliente.devolverFilme(filmeF);
+				        } else {
+				            System.out.println("\t 𝝣「 ✖ 」➜ Filme não encontrado!");
+				        } 
+				        continuarDevolvendo = teclado.nextLine();
+				    } while (continuarDevolvendo.equalsIgnoreCase("s")); 
 				    System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 				    return novoCliente;
 				case 5:
