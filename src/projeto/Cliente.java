@@ -87,10 +87,9 @@ public class Cliente {
 	
 	public double consultarSaldos(String senhaInput, boolean multado) { 
 		double saldoTotal = 0.0;
-		//ArrayList<Transacao> transacoes = new ArrayList<>();
 		if (this.senha.trim().equals(senhaInput.trim())) {
 			for (Transacao transacao : transacoes) {
-	            saldoTotal += transacao.calcularMulta();  // Soma as multas de cada transação
+	            saldoTotal += transacao.calcularMulta(); 
 	        }
 			multado = true;
 			System.out.println("\t 𝝣「 🧾 」➜ Multa: " + saldoTotal);

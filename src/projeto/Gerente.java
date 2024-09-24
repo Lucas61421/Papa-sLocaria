@@ -11,7 +11,6 @@ public class Gerente extends Cliente {
 	public Gerente(String cpf, String nome, String senha, long telefone, String email, String cidade, String rua, String bairro, int numCasa) {
 		super(cpf, nome, senha, telefone, email, cidade, rua, bairro, numCasa);
 		this.multado = false;
-
 		this.clientes = new ArrayList<>();
 	}
 	
