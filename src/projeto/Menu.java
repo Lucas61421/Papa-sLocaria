@@ -192,8 +192,7 @@ public class Menu {
 		System.out.println("\t\t•| ⊱SELECIONE UMA AÇÃO ENTRE 1 E 4⊰ |•");
 		System.out.println("\t 𝝣「 1 」➜ Adicionar filme! \t\t");
 		System.out.println("\t 𝝣「 2 」➜ Remover filme! \t\t");
-		System.out.println("\t 𝝣「 3 」➜ Remover cadastro de cliente!\t\t"); 
-		System.out.println("\t 𝝣「 4 」➜ Voltar ao menu!\t\t");
+		System.out.println("\t 𝝣「 3 」➜ Voltar ao menu!\t\t");
 		
 		System.out.print("\t 𝝣「 ✏ 」➜ Escolha: "); escolha = teclado.nextInt();
 		do {
@@ -208,7 +207,7 @@ public class Menu {
 						teclado.nextLine();
 					} while (continuarAdicionando.equalsIgnoreCase("s"));
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-					break;
+					return;
 				case 2:
 					ArrayList<Filme> filmeRemove = new ArrayList<>();
 					String continuarRemovendo;
@@ -223,12 +222,6 @@ public class Menu {
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					return;
 				case 3:
-					Cliente cliente;
-					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-					gerente.removerCadastro(teclado);
-					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-					break;
-				case 4:
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					System.out.println("\t 𝝣「 ↩ 」➜ Voltando para o menu principal! ");
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
@@ -237,7 +230,7 @@ public class Menu {
 					System.out.println("\t 𝝣「 ✖ 」➜ Opção inválida! ");
 					break;
 			}
-		} while(escolha != 4);
+		} while(escolha != 3);
 		
 	}
 }
