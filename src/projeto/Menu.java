@@ -3,7 +3,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+
 
 public class Menu {
 
@@ -23,6 +23,7 @@ public class Menu {
 		clientes.add(cliente2);
 		
 		do {
+			
 			gerarMenu(); 
 			System.out.print("\t 𝝣「 ✏ 」➜ Escolha: "); escolha = teclado.nextInt();
 			teclado.nextLine();
@@ -37,16 +38,16 @@ public class Menu {
 				    break;
 			   case 2:
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-					System.out.println("\t\t•| ⊱ Bem-vindo(a)! A gerente " + gerente.getNome() + " atenderá-lo(a) ⊰ |•");
-				   entrarGerente();
-				   System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-				   break; 
+					System.out.println("\t\t•| ⊱ Bem-vinda, gerente: " + gerente.getNome() + " ⊰ |•");
+					entrarGerente();
+					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
+				   	break; 
 			   case 3:
 				   System.out.println("\t 𝝣「 🖥 」➜ Operação finalizada. Até logo! ");
 				   break;
 			   default:
 				   System.out.println("\t 𝝣「 ✖ 」➜ Opção inválida! ");
-				   break;
+				   
 				   
 			} 
 		} while(escolha != 3);
@@ -87,7 +88,7 @@ public class Menu {
 		System.out.print("\t 𝝣「 ✏ 」➜ Escolha: "); int escolha = teclado.nextInt();
 		teclado.nextLine();
 	    Acervo acervo = new Acervo();
-	    Filme filme = new Filme(null, null, null, null, escolha, false, false); 
+	    Filme filme = null; 
 	    
 		do {
 			switch (escolha) {
@@ -137,9 +138,9 @@ public class Menu {
 							gerente.setMultado(true);
 							System.out.print("\t 𝝣「 ⚠VEACO⚠ 」➜ Aviso! Você foi multado"); 
 						}
-					    novoCliente.devolverFilme(filme, tituloInput);
-						
-						System.out.print("\n\t 𝝣「 ↩ 」➜ Deseja devolver outro filme? (s/n): "); continuarDevolvendo = teclado.nextLine();
+					    novoCliente.devolverFilme(filme);
+						System.out.print("\n\t 𝝣「 ↩ 」➜ Deseja devolver outro filme? (s/n): "); 
+						continuarDevolvendo = teclado.nextLine();
 					} while (continuarDevolvendo.equalsIgnoreCase("s")); 
 					
 				    System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
@@ -153,12 +154,12 @@ public class Menu {
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					System.out.println("\t 𝝣「 ↩ 」➜ Voltando para o menu principal! ");
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-					return novoCliente;
+					break;
 				default:
 					System.out.println("\t 𝝣「 ✖ 」➜ Opção inválida! ");
-					break;
+
 			}
-		} while(escolha != 7);
+		} while(escolha != 6);
 		return novoCliente;
 	}
 	
@@ -182,13 +183,10 @@ public class Menu {
 		int escolha;
 		ArrayList<Cliente> clientes = new ArrayList<>();
 	    Acervo acervo = new Acervo();
-	    Filme filme;
 		Scanner teclado = new Scanner(System.in);
 		Gerente gerente = new Gerente("123.123.123-12","Yotra", "esprega#esprega", 12345678 , "yotraesprega@gmail.com", 
 				"Xangai", "Fubuki", "Liberdade", 23);
-		System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-		System.out.println("\t\t\t•| ⊱ Bem-vinda, gerente: " + gerente.getNome() + " ⊰ |•");
-		System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
+
 		System.out.println("\t\t•| ⊱SELECIONE UMA AÇÃO ENTRE 1 E 4⊰ |•");
 		System.out.println("\t 𝝣「 1 」➜ Adicionar filme! \t\t");
 		System.out.println("\t 𝝣「 2 」➜ Remover filme! \t\t");
@@ -200,7 +198,8 @@ public class Menu {
 			switch (escolha) {
 				case 1:
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-					acervo.adicionarFilme(filme, teclado); //dando erro
+				ArrayList<Filme> filmeAdd = new ArrayList<>();
+				acervo.adicionarFilme(filmeAdd); 
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					break;
 				case 2:

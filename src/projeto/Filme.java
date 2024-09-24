@@ -4,13 +4,12 @@ public class Filme {
 	private String titulo;
 	private String genero;
 	private String sinopse;
-	private String classificacaoIndicativa;
+	private int classificacaoIndicativa;
 	private int anoLancamento;
 	private boolean dublado;
 	private boolean disponivel;
 	
-	public Filme(String titulo, String genero, String sinopse, String classificacaoIndicativa, int anoLancamento, 
-			 boolean dublado, boolean disponivel) {
+	public Filme(String titulo, String genero, String sinopse, int classificacaoIndicativa, int anoLancamento, boolean dublado, boolean disponivel) {
 		this.titulo = titulo;
 		this.genero = genero;
 		this.sinopse = sinopse;
@@ -30,8 +29,8 @@ public class Filme {
 	public String getSinopse() { return sinopse; }
 	public void setSinopse(String sinopse) { this.sinopse = sinopse; }
 
-	public String getClassificacaoIndicativa() { return classificacaoIndicativa; }
-	public void setClassificacaoIndicativa(String classificacaoIndicativa) { this.classificacaoIndicativa = classificacaoIndicativa; }
+	public int getClassificacaoIndicativa() { return classificacaoIndicativa; }
+	public void setClassificacaoIndicativa(int classificacaoIndicativa) { this.classificacaoIndicativa = classificacaoIndicativa; }
 
 	public int getAnoLancamento() { return anoLancamento; }
 	public void setAnoLancamento(int anoLancamento) { this.anoLancamento = anoLancamento; }
@@ -46,7 +45,7 @@ public class Filme {
 	
 	public String exibirInfoFilme() {
         return String.format(
-            "\t 𝝣「 ✍ 」➜ Título: %s\n\t 𝝣「 🔍 」➜ Gênero: %s\n\t 𝝣「 📞 」➜ Sinopse: %s\n\t 𝝣「 📧 」➜ Classificação Indicativa: %s\n\t 𝝣「 🪪 」➜ Ano Lançamento: %d\n\t 𝝣「 🌉 」➜ Dublado(true/false): %s\n\t 𝝣「 🛣 」➜ Disponível(true/false): %s ",
+            "\t 𝝣「 ✍ 」➜ Título: %s\n\t 𝝣「 🔍 」➜ Gênero: %s\n\t 𝝣「 📞 」➜ Sinopse: %s\n\t 𝝣「 📧 」➜ Classificação Indicativa(em anos, onde 0 = livre): %s\n\t 𝝣「 🪪 」➜ Ano Lançamento: %d\n\t 𝝣「 🌉 」➜ Dublado(true/false): %s\n\t 𝝣「 🛣 」➜ Disponível(true/false): %s ",
             titulo, genero, sinopse, classificacaoIndicativa, anoLancamento,
             dublado ? "Sim" : "Não", disponivel ? "Sim" : "Não" );
     }

@@ -43,6 +43,7 @@ public class Transacao {
 			diasAtraso = (int) ChronoUnit.DAYS.between(dataEmprestimo, dataDevolver);
 			if (diasAtraso > 0) {
 				multa = diasAtraso * taxaMultaDiaria;
+				multa += aluguelQuinzenal;
 			}
 		}
 		return multa;

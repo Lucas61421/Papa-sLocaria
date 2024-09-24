@@ -4,24 +4,21 @@ import java.util.Scanner;
 
 public class Gerente extends Cliente {
 	private boolean multado;
-	private boolean devolvido;
+
 	private ArrayList<Cliente> clientes;
 
 	
 	public Gerente(String cpf, String nome, String senha, long telefone, String email, String cidade, String rua, String bairro, int numCasa) {
 		super(cpf, nome, senha, telefone, email, cidade, rua, bairro, numCasa);
 		this.multado = false;
-		this.devolvido = false;
+
 		this.clientes = new ArrayList<>();
 	}
 	
 	
 	public boolean isMultado() { return multado; }
 	public void setMultado(boolean multado) { this.multado = multado; }
-	
-	public boolean isDevolvido() { return devolvido; }
-	public void setDevolvido(boolean devolvido) { this.devolvido = devolvido; }
-	
+
 	public ArrayList<Cliente> getClientes() { return clientes; }
 	public void setClientes(ArrayList<Cliente> clientes) { this.clientes = clientes; }
 
