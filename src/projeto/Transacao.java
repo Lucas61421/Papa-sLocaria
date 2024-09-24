@@ -66,6 +66,4 @@ public class Transacao {
 	    }
 	}
 
-	
-	private void quitarDebitos(double multa) { multa = 0.0; }
 }
