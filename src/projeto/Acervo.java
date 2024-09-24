@@ -1,5 +1,6 @@
 package projeto;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.text.Normalizer;
 
@@ -11,6 +12,7 @@ public class Acervo {
 		this.filmes = new ArrayList<>();
 		adicionarFilmesIniciais();
 	}
+	Scanner teclado = new Scanner(System.in);
 	
 	public static String removerAcentos(String texto) {
         String textoNormalizado = Normalizer.normalize(texto, Normalizer.Form.NFD);
@@ -33,7 +35,6 @@ public class Acervo {
 	    }
 	
 	 public void adicionarFilme(ArrayList<Filme> filmeadd) { 
-		    Scanner teclado = new Scanner(System.in);
 		    System.out.println("\t「𝝣🎬」============================================================「𝝣🎬」");
 
 		    System.out.print("\t 𝝣「 🔍 」➜ Título: "); String tituloInput = teclado.nextLine();  
@@ -75,7 +76,33 @@ public class Acervo {
 		}
 
 	
-	public void removerFilme(Filme filme) { filmes.remove(filme); }
+	 public void removerFilme(ArrayList<Filme> filmeRemove) { 
+		    System.out.print("\t 𝝣「 🔍 」➜ Título a ser removido: "); String tituloRemove = teclado.nextLine(); 
+		    String tituloNormalizadoRem = removerAcentos(tituloRemove);
+		    
+		    boolean filmeEncontrado = false;
+		    
+		    Iterator<Filme> iterator = filmes.iterator();
+		    
+		    while (iterator.hasNext()) {
+		        Filme filme = iterator.next();
+		        String tituloNormalizadoFilme = removerAcentos(filme.getTitulo());
+		        
+
+		        if (tituloNormalizadoRem.equalsIgnoreCase(tituloNormalizadoFilme)) {
+		            iterator.remove();  
+		            filmeEncontrado = true;
+		            System.out.println("\t 𝝣「 " + filme.getTitulo() + " 」➜ Filme removido com sucesso!");
+		            System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
+		            break;  
+		        }
+		    }
+		    
+		    if (!filmeEncontrado) {
+		        System.out.println("\t 𝝣「 " + tituloRemove + " 」➜ Não consta no acervo!");
+		        System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
+		    }
+		}
 	
 	
 	public Filme procurarFilme(String tituloInputBusca) {

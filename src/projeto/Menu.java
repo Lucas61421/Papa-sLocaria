@@ -184,6 +184,8 @@ public class Menu {
 		ArrayList<Cliente> clientes = new ArrayList<>();
 	    Acervo acervo = new Acervo();
 		Scanner teclado = new Scanner(System.in);
+		Cliente cliente2 = new Cliente("171.171.171-71", "Keen Xong", "calmaCalabreso24", 22222222, "Calabresoacalmado@gmail.com", "Xangai",
+				"Fubuki", "Liberdade", 32);
 		Gerente gerente = new Gerente("123.123.123-12","Yotra", "esprega#esprega", 12345678 , "yotraesprega@gmail.com", 
 				"Xangai", "Fubuki", "Liberdade", 23);
 
@@ -195,9 +197,9 @@ public class Menu {
 		
 		System.out.print("\t 𝝣「 ✏ 」➜ Escolha: "); escolha = teclado.nextInt();
 		do {
-			ArrayList<Filme> filmeAdd = new ArrayList<>();
 			switch (escolha) {
 				case 1:
+					ArrayList<Filme> filmeAdd = new ArrayList<>();
 					String continuarAdicionando;
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					do {
@@ -208,18 +210,22 @@ public class Menu {
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					break;
 				case 2:
+					ArrayList<Filme> filmeRemove = new ArrayList<>();
 					String continuarRemovendo;
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
+					cliente2.consultarAcervo(acervo);
 					do {
-						//acervo.adicionarFilme(filmeAdd); 
+						acervo.removerFilme(filmeRemove);
+						cliente2.consultarAcervo(acervo);
 						System.out.print("\t 𝝣「 ↩ 」➜ Deseja remover outro filme? (s/n): "); continuarRemovendo = teclado.nextLine();
 						teclado.nextLine();
 					} while (continuarRemovendo.equalsIgnoreCase("s"));
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-					break;
+					return;
 				case 3:
+					Cliente cliente;
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-					
+					gerente.removerCadastro(teclado);
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					break;
 				case 4:
