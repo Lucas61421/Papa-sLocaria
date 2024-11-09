@@ -1,7 +1,10 @@
-package projeto;
+package dados;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+
+import negocio.Filme;
+
 import java.text.Normalizer;
 
 
@@ -69,6 +72,7 @@ public class Acervo {
 		        Filme filmeAdicionado = new Filme(tituloInput, generoInput, sinopseInput, classificacaoIndicativaInput, anoLancamentoInput, dubladoInput, disponivelInput);
 
 		        filmeadd.add(filmeAdicionado); 
+		        
 		        System.out.println("\t 𝝣「 " + tituloInput + " 」➜ Filme adicionado com sucesso! ");
 		    } else {
 		        System.out.println("\t 𝝣「 " + tituloInput + " 」➜ Já está cadastrado! "); 

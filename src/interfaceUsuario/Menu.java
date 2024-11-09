@@ -1,7 +1,14 @@
-package projeto;
+package interfaceUsuario;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import dados.Acervo;
+import negocio.Cliente;
+import negocio.Filme;
+import negocio.Gerente;
+import negocio.Transacao;
+
 import java.time.format.DateTimeFormatter;
 
 
@@ -163,7 +170,6 @@ public class Menu {
 	}
 	
 	public static void atendimentoGerente() {
-		int escolha;
 		ArrayList<Cliente> clientes = new ArrayList<>();
 	    Acervo acervo = new Acervo();
 		Scanner teclado = new Scanner(System.in);

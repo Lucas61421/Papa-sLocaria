@@ -1,4 +1,4 @@
-package projeto;
+package negocio;
 
 public class Filme {
 	private String titulo;

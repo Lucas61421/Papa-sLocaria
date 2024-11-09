@@ -1,5 +1,7 @@
-package projeto;
+package negocio;
 import java.util.ArrayList;
+
+import dados.Acervo;
 
 public class Cliente {
 	private String cpf;

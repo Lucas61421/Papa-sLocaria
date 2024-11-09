@@ -1,4 +1,4 @@
-package projeto;
+package negocio;
 import java.util.ArrayList;
 import java.util.Scanner;
 
