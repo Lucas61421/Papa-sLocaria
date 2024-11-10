@@ -107,13 +107,36 @@ public class Acervo {
 	            } while (!classificacaoValida);
 		        
 		        
-		        int anoLancamentoInput;
-		        do {
-		        	System.out.print("\t 𝝣「 🪪 」➜ Ano Lançamento: ");  anoLancamentoInput = teclado.nextInt();
-			        teclado.nextLine(); 
-		        } while(anoLancamentoInput<1888 || anoLancamentoInput>2024);
+	            int anoLancamentoInput = -1;
+	            boolean anoValido = false;
+	            do {
+	                System.out.print("\t 𝝣「 🪪 」➜ Ano Lançamento: ");
+	                try {
+	                    anoLancamentoInput = Integer.parseInt(teclado.nextLine());
+	                    
+	                    if (anoLancamentoInput >= 1888 && anoLancamentoInput <= java.time.Year.now().getValue()) {
+	                        anoValido = true;
+	                    } else {
+	                        System.out.println("\t 𝝣「 ⚠ 」Ano inválido. Digite um ano entre 1888 e o ano atual.");
+	                    }
+	                } catch (NumberFormatException e) {
+	                    System.out.println("\t 𝝣「 ⚠ 」Entrada inválida. Digite um número inteiro.");
+	                }
+	            } while (!anoValido);
 
-		        System.out.print("\t 𝝣「 🌉 」➜ Dublado(true/false): "); boolean dubladoInput = teclado.nextBoolean();
+	            Boolean dubladoInput = null;
+	            while (dubladoInput == null) {
+	                System.out.print("\t 𝝣「 🌉 」➜ Dublado(true/false): ");
+	                String dubladoStr = teclado.nextLine().trim().toLowerCase();
+	                
+	                if (dubladoStr.equals("true")) {
+	                    dubladoInput = true;
+	                } else if (dubladoStr.equals("false")) {
+	                    dubladoInput = false;
+	                } else {
+	                    System.out.println("\t 𝝣「 ⚠ 」Entrada inválida. Digite apenas 'true' ou 'false'.");
+	                }
+	            }
 
 		        System.out.print("\t 𝝣「 🛣 」➜ Disponível(true/false): true");  boolean disponivelInput = true; 
 
