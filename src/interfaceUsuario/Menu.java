@@ -9,6 +9,7 @@ import negocio.Filme;
 import negocio.Gerente;
 import negocio.Transacao;
 
+import java.util.InputMismatchException;
 import java.time.format.DateTimeFormatter;
 
 
@@ -18,7 +19,6 @@ public class Menu {
 		int escolha;
 		ArrayList<Cliente> clientes = new ArrayList<>();
 		ArrayList<Transacao> transacoes = new ArrayList<>();
-	    Acervo acervo = new Acervo();
 		Scanner teclado = new Scanner(System.in);
 		Cliente cliente1 = new Cliente("109.109.109-09", "Xuu Lee", "setembr0Amarelo", 11111111, "Xuuessemes@gmail.com", "Xangai", 
 				"Matsuya", "Liberdade", 99);
@@ -153,7 +153,7 @@ public class Menu {
 				    return novoCliente;
 				case 5:
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-				    cliente1.consultarAcervo(acervo); // Now prints all films in the acervo
+				    cliente1.consultarAcervo(acervo); 
 				    System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					return novoCliente;
 				case 6:
@@ -171,7 +171,6 @@ public class Menu {
 	
 	public static void atendimentoGerente() {
 		ArrayList<Cliente> clientes = new ArrayList<>();
-	    Acervo acervo = new Acervo();
 		Scanner teclado = new Scanner(System.in);
 		Gerente gerente = new Gerente("123.123.123-12", "Yotra", "esprega#esprega", 12345678 , "yotraesprega@gmail.com",
 				"Xangai", "Fubuki", "Liberdade", 23);
@@ -186,10 +185,9 @@ public class Menu {
 	}
 	public static void entrarGerente() {
 		int escolha;
-		ArrayList<Cliente> clientes = new ArrayList<>();
 	    Acervo acervo = new Acervo();
 		Scanner teclado = new Scanner(System.in);
-		Cliente cliente2 = new Cliente("171.171.171-71", "Keen Xong", "calmaCalabreso24", 22222222, "Calabresoacalmado@gmail.com", "Xangai",
+		Cliente cliente = new Cliente("171.171.171-71", "Keen Xong", "calmaCalabreso24", 22222222, "Calabresoacalmado@gmail.com", "Xangai",
 				"Fubuki", "Liberdade", 32);
 		Gerente gerente = new Gerente("123.123.123-12","Yotra", "esprega#esprega", 12345678 , "yotraesprega@gmail.com", 
 				"Xangai", "Fubuki", "Liberdade", 23);
@@ -203,27 +201,32 @@ public class Menu {
 		do {
 			switch (escolha) {
 				case 1:
-					ArrayList<Filme> filmeAdd = new ArrayList<>();
-					String continuarAdicionando;
+					boolean continuarAdicionando;
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-					do {
-						acervo.adicionarFilme(filmeAdd); 
-						System.out.print("\t 𝝣「 ↩ 」➜ Deseja adicionar outro filme? (s/n): "); continuarAdicionando = teclado.nextLine();
-						teclado.nextLine();
-					} while (continuarAdicionando.equalsIgnoreCase("s"));
+					try {
+						do {
+							acervo.adicionarFilme(); 
+							System.out.print("\t 𝝣「 ↩ 」➜ Deseja adicionar outro filme? (true/false): "); continuarAdicionando = teclado.nextBoolean();
+						} while (continuarAdicionando);
+					} catch (InputMismatchException e){
+						System.out.println("\t 𝝣「 ✖ 」➜ Entrada não booleana!, " + e.getMessage()); teclado.nextLine();
+					}
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					return;
 				case 2:
-					ArrayList<Filme> filmeRemove = new ArrayList<>();
-					String continuarRemovendo;
+					boolean continuarRemovendo;
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-					cliente2.consultarAcervo(acervo);
+					cliente.consultarAcervo(acervo);
+				try {
 					do {
-						acervo.removerFilme(filmeRemove);
-						cliente2.consultarAcervo(acervo);
-						System.out.print("\t 𝝣「 ↩ 」➜ Deseja remover outro filme? (s/n): "); continuarRemovendo = teclado.nextLine();
+						acervo.removerFilme();
+						cliente.consultarAcervo(acervo);
+						System.out.print("\t 𝝣「 ↩ 」➜ Deseja remover outro filme? (s/n): "); continuarRemovendo = teclado.nextBoolean();
 						teclado.nextLine();
-					} while (continuarRemovendo.equalsIgnoreCase("s"));
+					} while (continuarRemovendo);
+				} catch (InputMismatchException e) { 
+                    System.out.println("\t 𝝣「 ✖ 」➜ Entrada não booleana!, " + e.getMessage()); teclado.nextLine(); 
+                }
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					return;
 				case 3:

@@ -37,13 +37,14 @@ public class Acervo {
 	        filmes.add(new Filme("A Noiva Cadáver", "Animação", "Um jovem acidentalmente propõe casamento a uma noiva morta no submundo.", 0, 2005, true, true));
 	    }
 	
-	 public void adicionarFilme(ArrayList<Filme> filmeadd) { 
+	 public void adicionarFilme() { 
 		    System.out.println("\t「𝝣🎬」============================================================「𝝣🎬」");
 
-		    System.out.print("\t 𝝣「 🔍 」➜ Título: "); String tituloInput = teclado.nextLine();  
+		    System.out.print("\t 𝝣「 🔍 」➜ Título: "); String tituloInput = teclado.next();  
+		    teclado.nextLine();
 		    boolean filmeExiste = false;
 		    
-		    for (Filme f : filmeadd) {
+		    for (Filme f : filmes) {
 		        if (f.getTitulo().equalsIgnoreCase(tituloInput)) {
 		            filmeExiste = true;
 		            break;
@@ -71,7 +72,7 @@ public class Acervo {
 
 		        Filme filmeAdicionado = new Filme(tituloInput, generoInput, sinopseInput, classificacaoIndicativaInput, anoLancamentoInput, dubladoInput, disponivelInput);
 
-		        filmeadd.add(filmeAdicionado); 
+		        this.filmes.add(filmeAdicionado);
 		        
 		        System.out.println("\t 𝝣「 " + tituloInput + " 」➜ Filme adicionado com sucesso! ");
 		    } else {
@@ -80,7 +81,7 @@ public class Acervo {
 		}
 
 	
-	 public void removerFilme(ArrayList<Filme> filmeRemove) { 
+	 public void removerFilme() { 
 		    System.out.print("\t 𝝣「 🔍 」➜ Título a ser removido: "); String tituloRemove = teclado.nextLine(); 
 		    String tituloNormalizadoRem = removerAcentos(tituloRemove);
 		    
