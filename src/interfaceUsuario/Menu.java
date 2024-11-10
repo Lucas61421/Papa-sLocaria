@@ -90,15 +90,18 @@ public class Menu {
 		do {
 			switch (escolha) {
 				case 1:
-					String continuarBuscando;
+					boolean continuarBuscando;
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-					do {
-						System.out.print("\t 𝝣「 ✏ 」➜ Título a ser buscado: "); String tituloInputBusca = teclado.nextLine();
-						acervo.procurarFilme(tituloInputBusca);
-						System.out.print("\t 𝝣「 ↩ 」➜ Deseja buscar outro filme? (s/n): ");
-				        continuarBuscando = teclado.next();
-				        teclado.nextLine();
-					} while (continuarBuscando.equalsIgnoreCase("s"));
+					try {
+						do {
+							System.out.print("\t 𝝣「 ✏ 」➜ Título a ser buscado: "); String tituloInputBusca = teclado.nextLine();
+							acervo.procurarFilme(tituloInputBusca);
+							System.out.print("\t 𝝣「 ↩ 」➜ Deseja buscar outro filme? (s/n): "); continuarBuscando = teclado.nextBoolean();
+					        teclado.nextLine();
+						} while (continuarBuscando);
+					} catch (InputMismatchException e){
+						System.out.println("\t 𝝣「 ✖ 」➜ Entrada não booleana!, " + e.getMessage()); teclado.nextLine();
+					}
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					return novoCliente;
 				case 2:
@@ -114,17 +117,22 @@ public class Menu {
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					return novoCliente;
 				case 4:
-					String continuarAlugando;
+					boolean continuarAlugando;
 				    Cliente clienteSelecionado = novoCliente; 
 				    Transacao transacao = new Transacao(10, LocalDate.now(), LocalDate.now().plusDays(15), 0.0, 0, clienteSelecionado);
 				    System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-				    do {
-				        System.out.print("\t 𝝣「 ✏ 」➜ Digite o título do filme que deseja alugar: "); 
-				        String tituloInput = teclado.nextLine();
-				        transacao.gerarNotaFiscal(tituloInput, acervo);
-				        System.out.print("\t 𝝣「 ↩ 」➜ Deseja alugar outro filme? (s/n): ");
-				        continuarAlugando = teclado.nextLine();
-				    } while (continuarAlugando.equalsIgnoreCase("s"));
+				    try {
+				    	do {
+					        System.out.print("\t 𝝣「 ✏ 」➜ Digite o título do filme que deseja alugar: "); 
+					        String tituloInput = teclado.nextLine();
+					        transacao.gerarNotaFiscal(tituloInput, acervo);
+					        System.out.print("\t 𝝣「 ↩ 」➜ Deseja alugar outro filme? (true/false): "); continuarAlugando = teclado.nextBoolean();
+					        System.out.println();
+					        teclado.nextLine();
+					    } while (continuarAlugando);
+				    } catch (InputMismatchException e){
+						System.out.println("\t 𝝣「 ✖ 」➜ Entrada não booleana!, " + e.getMessage()); teclado.nextLine();
+					}
 				    
 				    String continuarDevolvendo;
 				    do {
@@ -195,7 +203,7 @@ public class Menu {
 		System.out.println("\t\t•| ⊱SELECIONE UMA AÇÃO ENTRE 1 E 4⊰ |•");
 		System.out.println("\t 𝝣「 1 」➜ Adicionar filme! \t\t");
 		System.out.println("\t 𝝣「 2 」➜ Remover filme! \t\t");
-		System.out.println("\t 𝝣「 3 」➜ Voltar ao menu!\t\t");
+		System.out.println("\t 𝝣「 3 」➜ Voltar ao menu! \t\t");
 		
 		System.out.print("\t 𝝣「 ✏ 」➜ Escolha: "); escolha = teclado.nextInt();
 		do {
