@@ -1,22 +1,24 @@
 package dados;
+
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
-
 import negocio.Filme;
-
 import java.text.Normalizer;
 
-
 public class Acervo {
-	private ArrayList<Filme> filmes;
-	private ArrayList<String> generos;
-	
-	public Acervo() {
-		this.filmes = new ArrayList<>();
-		this.generos = new ArrayList<>();
-		
-		this.generos.add("comédia");
+    private ArrayList<Filme> filmes;
+    private ArrayList<String> generos;
+    private List<Integer> classificacoesValidas;
+
+    public Acervo() {
+        this.filmes = new ArrayList<>();
+        this.generos = new ArrayList<>();
+        this.classificacoesValidas = List.of(0, 10, 12, 14, 16, 18); // Classificações permitidas
+
+        // Adiciona os gêneros de filmes na lista generos
+        this.generos.add("comédia");
         this.generos.add("romance");
         this.generos.add("terror");
         this.generos.add("suspense");
@@ -24,9 +26,9 @@ public class Acervo {
         this.generos.add("ficção científica");
         this.generos.add("animação");
         this.generos.add("floptok");
-        
-		adicionarFilmesIniciais();
-	}
+
+        adicionarFilmesIniciais();
+    }
 	Scanner teclado = new Scanner(System.in);
 	
 	public static String removerAcentos(String texto) {
@@ -66,22 +68,50 @@ public class Acervo {
 		    }
 
 		    if (!filmeExiste) {
-	            String generoInput;
-	            do {
-	                System.out.print("\t 𝝣「 🔍 」➜ Gênero: ");
-	                generoInput = teclado.nextLine().toLowerCase();
-	                if (!generos.contains(removerAcentos(generoInput))) {
-	                    System.out.println("\t 𝝣「 ⚠ 」Gênero inválido. Tente novamente com um dos gêneros: " + generos);
-	                }
-	            } while (!generos.contains(removerAcentos(generoInput)));
+		    	String generoInput;
+		    	boolean generoValido;
+		    	do {
+		    	    System.out.print("\t 𝝣「 🔍 」➜ Gênero: ");
+		    	    generoInput = teclado.nextLine().toLowerCase();
+		    	    String generoNormalizadoInput = removerAcentos(generoInput);
+
+		    	    generoValido = false;
+		    	    for (String genero : generos) {
+		    	        if (removerAcentos(genero).equalsIgnoreCase(generoNormalizadoInput)) {
+		    	            generoValido = true;
+		    	            break;
+		    	        }
+		    	    }
+		    	    
+		    	    if (!generoValido) {
+		    	        System.out.println("\t 𝝣「 ⚠ 」Gênero inválido. Tente novamente com um dos gêneros: " + generos);
+		    	    }
+		    	} while (!generoValido);
 		       
 		        System.out.print("\t 𝝣「 📞 」➜ Sinopse: "); String sinopseInput = teclado.nextLine();
+		        
+		        int classificacaoIndicativaInput = -1;
+	            boolean classificacaoValida = false;
+	            do {
+	                System.out.print("\t 𝝣「 📧 」➜ Classificação Indicativa(em anos, onde 0 = livre): ");
+	                try {
+	                    classificacaoIndicativaInput = Integer.parseInt(teclado.nextLine());
+	                    classificacaoValida = classificacoesValidas.contains(classificacaoIndicativaInput);
 
-		        System.out.print("\t 𝝣「 📧 」➜ Classificação Indicativa(em anos, onde 0 = livre): ");  int classificacaoIndicativaInput = teclado.nextInt();
-		        teclado.nextLine();  
-
-		        System.out.print("\t 𝝣「 🪪 」➜ Ano Lançamento: "); int anoLancamentoInput = teclado.nextInt();
-		        teclado.nextLine(); 
+	                    if (!classificacaoValida) {
+	                        System.out.println("\t 𝝣「 ⚠ 」Classificação inválida. Escolha entre: " + classificacoesValidas);
+	                    }
+	                } catch (NumberFormatException e) {
+	                    System.out.println("\t 𝝣「 ⚠ 」Entrada inválida. Digite um número inteiro.");
+	                }
+	            } while (!classificacaoValida);
+		        
+		        
+		        int anoLancamentoInput;
+		        do {
+		        	System.out.print("\t 𝝣「 🪪 」➜ Ano Lançamento: ");  anoLancamentoInput = teclado.nextInt();
+			        teclado.nextLine(); 
+		        } while(anoLancamentoInput<1888 || anoLancamentoInput>2024);
 
 		        System.out.print("\t 𝝣「 🌉 」➜ Dublado(true/false): "); boolean dubladoInput = teclado.nextBoolean();
 
