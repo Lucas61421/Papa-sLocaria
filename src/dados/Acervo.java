@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
-import negocio.Filme;
 import java.text.Normalizer;
 
 public class Acervo {
@@ -15,9 +14,9 @@ public class Acervo {
     public Acervo() {
         this.filmes = new ArrayList<>();
         this.generos = new ArrayList<>();
-        this.classificacoesValidas = List.of(0, 10, 12, 14, 16, 18); // Classificações permitidas
+        this.classificacoesValidas = List.of(0, 10, 12, 14, 16, 18); 
 
-        // Adiciona os gêneros de filmes na lista generos
+
         this.generos.add("comédia");
         this.generos.add("romance");
         this.generos.add("terror");

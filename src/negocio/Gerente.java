@@ -7,12 +7,11 @@ import java.util.regex.Matcher;
 
 public class Gerente extends Cliente {
 	private boolean multado;
-
 	private ArrayList<Cliente> clientes;
 
 	
-	public Gerente(String cpf, String nome, String senha, long telefone, String email, String cidade, String rua, String bairro, int numCasa) {
-		super(cpf, nome, senha, telefone, email, cidade, rua, bairro, numCasa);
+	public Gerente(String cpf, String nome, String senha, long telefone, String email, String cidade, String rua, String bairro, int numCasa, int idade) {
+		super(cpf, nome, senha, telefone, email, cidade, rua, bairro, numCasa, idade);
 		this.multado = false;
 		this.clientes = new ArrayList<>();
 	}
@@ -159,9 +158,28 @@ public class Gerente extends Cliente {
 	            }
 	        } catch (InputMismatchException e) {
 	            System.out.println("\t 𝝣「 ⚠ 」Entrada inválida. Por favor, insira apenas números.");
-	            teclado.nextLine(); // Limpa o buffer para evitar um loop infinito
+	            teclado.nextLine(); 
 	        }
 	    } while (!numCasaValido);
+	    
+	    int idadeInput = 0;
+	    boolean idadeValida = false;
+	    do {
+	        System.out.print("\t 𝝣「 🛣 」➜ Idade: ");  
+	        
+	        try {
+	        	idadeInput = teclado.nextInt();
+	        	 teclado.nextLine();
+	        	 idadeValida = ((idadeInput>0) && (idadeInput<101));
+	        	 
+	        	 if (!idadeValida) {
+		                System.out.println("\t 𝝣「 ⚠ 」Idade inválida. Ele deve ser um número positivo não nulo.");
+		            }
+		        } catch (InputMismatchException e) {
+		            System.out.println("\t 𝝣「 ⚠ 」Entrada inválida. Por favor, insira apenas números.");
+		            teclado.nextLine(); 
+		        }
+	    } while (!idadeValida);
 
 	    System.out.println("\t「𝝣🎬」============================================================「𝝣🎬」");
 
@@ -174,7 +192,8 @@ public class Gerente extends Cliente {
 	        cidadeInput,
 	        ruaInput,
 	        bairroInput,
-	        numCasaInput
+	        numCasaInput,
+	        idadeInput
 	    );
 
 	    this.clientes.add(novoCliente);

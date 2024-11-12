@@ -2,6 +2,8 @@ package negocio;
 import java.util.ArrayList;
 
 import dados.Acervo;
+import dados.Filme;
+import interfaceUsuario.Menu;
 
 public class Cliente {
 	private String cpf;
@@ -13,10 +15,10 @@ public class Cliente {
 	private String rua;
 	private String bairro;
 	private int numCasa;
+	private int idade;
 	private ArrayList<Transacao> transacoes;
-
 	
-	public Cliente(String cpf, String nome, String senha, long telefone, String email, String cidade, String rua, String bairro, int numCasa) {
+	public Cliente(String cpf, String nome, String senha, long telefone, String email, String cidade, String rua, String bairro, int numCasa, int idade) {
 		this.cpf = cpf;
 		this.nome = nome;
 		this.senha = senha;
@@ -26,6 +28,7 @@ public class Cliente {
 		this.rua = rua;
 		this.bairro = bairro;
 		this.numCasa = numCasa;
+		this.idade = idade;
 		this.transacoes = new ArrayList<>();
 	}
 
@@ -56,19 +59,28 @@ public class Cliente {
     
     public int getNumCasa() { return numCasa; }
     public void setNumCasa(int numCasa) { this.numCasa = numCasa; }
+    
+    public int getIdade() {return idade; }
+    public void setIdade(int idade) { this.idade = idade; }
 
     public ArrayList<Transacao> getTransacoes() { return transacoes; }
     public void setTransacoes(ArrayList<Transacao> transacoes) { this.transacoes = transacoes; }
 	
 	
-	public void alugarFilme(Filme filme, boolean multado) {
-		if (filme.isDisponivel() && !multado) {
-			filme.setDisponivel(false);
-		}
-		else {
-			System.out.println("\t 𝝣「 ✖ 」➜ Lamentamos, mas o filme está indisponível e/ou você está multado! ");
-		}
-	}
+    public void alugarFilme(Filme filme, boolean multado) {
+        if (filme.isDisponivel() && !multado) {
+
+            if (filme.podeSerAlugadoPor(this.idade)) {
+                filme.setDisponivel(false);
+                System.out.println("\t 𝝣「 ✔ 」➜ Filme alugado com sucesso!");
+            } else {
+                System.out.println("\n\t 𝝣「 ✖ 」➜ Idade insuficiente para alugar este filme.\n");
+                Menu.gerarMenuCliente(null);
+            }
+        } else {
+            System.out.println("\t 𝝣「 ✖ 」➜ Lamentamos, mas o filme está indisponível e/ou você está multado!");
+        }
+    }
 	
 	public void devolverFilme(Filme filme) { 
 		if (!filme.isDisponivel()) {

@@ -1,4 +1,4 @@
-package negocio;
+package dados;
 
 public class Filme {
 	private String titulo;
@@ -42,12 +42,14 @@ public class Filme {
 	public void setDisponivel(boolean disponivel) { this.disponivel = disponivel; }
 
 	
-	
 	public String exibirInfoFilme() {
         return String.format(
             "\t 𝝣「 ✍ 」➜ Título: %s\n\t 𝝣「 🔍 」➜ Gênero: %s\n\t 𝝣「 📞 」➜ Sinopse: %s\n\t 𝝣「 📧 」➜ Classificação Indicativa(em anos, onde 0 = livre): %s\n\t 𝝣「 🪪 」➜ Ano Lançamento: %d\n\t 𝝣「 🌉 」➜ Dublado(true/false): %s\n\t 𝝣「 🛣 」➜ Disponível(true/false): %s ",
             titulo, genero, sinopse, classificacaoIndicativa, anoLancamento,
             dublado ? "Sim" : "Não", disponivel ? "Sim" : "Não" );
     }
-
+	
+	public boolean podeSerAlugadoPor(int idadeCliente) {
+        return idadeCliente >= this.classificacaoIndicativa;
+    }
 }

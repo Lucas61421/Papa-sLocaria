@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 import dados.Acervo;
+import dados.Filme;
 
 public class Transacao {
 	private int aluguelQuinzenal;

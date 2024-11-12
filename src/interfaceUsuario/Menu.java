@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import dados.Acervo;
+import dados.Filme;
+import dados.FilmeInfantis;
+import dados.FilmeAdultos;
 import negocio.Cliente;
-import negocio.Filme;
 import negocio.Gerente;
 import negocio.Transacao;
 
@@ -21,11 +23,11 @@ public class Menu {
 		ArrayList<Transacao> transacoes = new ArrayList<>();
 		Scanner teclado = new Scanner(System.in);
 		Cliente cliente1 = new Cliente("109.109.109-09", "Xuu Lee", "setembr0Amarelo", 11111111, "Xuuessemes@gmail.com", "Xangai", 
-				"Matsuya", "Liberdade", 99);
+				"Matsuya", "Liberdade", 99, 21);
 		Cliente cliente2 = new Cliente("171.171.171-71", "Keen Xong", "calmaCalabreso24", 22222222, "Calabresoacalmado@gmail.com", "Xangai",
-				"Fubuki", "Liberdade", 32);
+				"Fubuki", "Liberdade", 32, 41);
 		Gerente gerente = new Gerente("123.123.123-12", "Yotra", "esprega#esprega", 12345678, "yotraesprega@gmail.com", "Xangai",
-				"Fubuki", "Liberdade", 23);
+				"Fubuki", "Liberdade", 23, 37);
 		clientes.add(cliente1);
 		clientes.add(cliente2);
 		
@@ -72,9 +74,9 @@ public class Menu {
 	public static Cliente gerarMenuCliente(ArrayList<Cliente> clientes) {
 		Scanner teclado = new Scanner(System.in);
 		Cliente cliente1 = new Cliente("109.109.109-09", "Xuu Lee", "setembr0Amarelo", 11111111, "Xuuessemes@gmail.com", "Xangai", 
-				"Matsuya", "Liberdade", 99);
+				"Matsuya", "Liberdade", 99, 21);
 		Gerente gerente = new Gerente("123.123.123-12", "Yotra", "esprega#esprega", 12345678 , "yotraesprega@gmail.com", 
-				"Xangai", "Fubuki", "Liberdade", 23);
+				"Xangai", "Fubuki", "Liberdade", 23, 37);
 		ArrayList<Cliente> clientesInput = new ArrayList<>();
 
 		Cliente novoCliente = gerente.criarCadastro(teclado, clientesInput);  
@@ -119,12 +121,14 @@ public class Menu {
 				case 4:
 					boolean continuarAlugando;
 				    Cliente clienteSelecionado = novoCliente; 
+
 				    Transacao transacao = new Transacao(10, LocalDate.now(), LocalDate.now().plusDays(15), 0.0, 0, clienteSelecionado);
 				    System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 				    try {
 				    	do {
 					        System.out.print("\t 𝝣「 ✏ 」➜ Digite o título do filme que deseja alugar: "); 
 					        String tituloInput = teclado.nextLine();
+					        
 					        transacao.gerarNotaFiscal(tituloInput, acervo);
 					        System.out.print("\t 𝝣「 ↩ 」➜ Deseja alugar outro filme? (true/false): "); continuarAlugando = teclado.nextBoolean();
 					        System.out.println();
@@ -181,7 +185,7 @@ public class Menu {
 		ArrayList<Cliente> clientes = new ArrayList<>();
 		Scanner teclado = new Scanner(System.in);
 		Gerente gerente = new Gerente("123.123.123-12", "Yotra", "esprega#esprega", 12345678 , "yotraesprega@gmail.com",
-				"Xangai", "Fubuki", "Liberdade", 23);
+				"Xangai", "Fubuki", "Liberdade", 23, 37);
 		System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 		System.out.println("\t\t•| ⊱SELECIONE UMA AÇÃO ENTRE 1 E 7⊰ |•");
 		System.out.println("\t 𝝣「 1 」➜ Procurar filme! ");
@@ -196,9 +200,9 @@ public class Menu {
 	    Acervo acervo = new Acervo();
 		Scanner teclado = new Scanner(System.in);
 		Cliente cliente = new Cliente("171.171.171-71", "Keen Xong", "calmaCalabreso24", 22222222, "Calabresoacalmado@gmail.com", "Xangai",
-				"Fubuki", "Liberdade", 32);
+				"Fubuki", "Liberdade", 32, 41);
 		Gerente gerente = new Gerente("123.123.123-12","Yotra", "esprega#esprega", 12345678 , "yotraesprega@gmail.com", 
-				"Xangai", "Fubuki", "Liberdade", 23);
+				"Xangai", "Fubuki", "Liberdade", 23, 37);
 
 		System.out.println("\t\t•| ⊱SELECIONE UMA AÇÃO ENTRE 1 E 4⊰ |•");
 		System.out.println("\t 𝝣「 1 」➜ Adicionar filme! \t\t");
