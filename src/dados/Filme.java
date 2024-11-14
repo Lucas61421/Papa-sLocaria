@@ -19,7 +19,6 @@ public class Filme {
 		this.disponivel = true;
 	}
 
-
 	public String getTitulo() { return titulo; }
 	public void setTitulo(String titulo) { this.titulo = titulo; }
 

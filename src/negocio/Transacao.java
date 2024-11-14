@@ -17,7 +17,7 @@ public class Transacao {
 	public Transacao(int aluguelQuinzenal, LocalDate dataEmprestimo, LocalDate dataDevolver, 
 			 double multa, int diasAtraso, Cliente cliente) {
 		this.aluguelQuinzenal = 10;
-		this.taxaMultaDiaria = 0.75;
+		this.taxaMultaDiaria = 1.5;
 		this.dataEmprestimo = LocalDate.now();
 		this.dataDevolver = dataEmprestimo.plusDays(15);
 		this.multa = 0.0;

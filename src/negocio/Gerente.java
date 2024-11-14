@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+
+import interfaceUsuario.Menu;
+
 import java.util.regex.Matcher;
 
 public class Gerente extends Cliente {
@@ -41,7 +44,8 @@ public class Gerente extends Cliente {
 	            System.out.println("\t 𝝣「 ⚠ 」CPF inválido. Por favor, insira no formato ###.###.###-##.");
 	        }
 	    } while (!cpfValido);
-
+	    
+	    
 	    String nomeInput;
 	    boolean nomeValido;
 	    do {
