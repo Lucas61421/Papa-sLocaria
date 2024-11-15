@@ -13,6 +13,7 @@ import negocio.Transacao;
 
 import java.util.InputMismatchException;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Menu {
 
@@ -113,9 +114,8 @@ public class Menu {
 				                            case 3:
 
 				                                System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-				                                System.out.print("\t 𝝣「 ✏ 」➜ Digite sua senha para consultar saldos: ");
-				                                String senhaInput = teclado.nextLine();
-				                                cliente.consultarSaldos(senhaInput, gerente.isMultado());
+				                                System.out.print("\t 𝝣「 ✏ 」➜ Digite sua senha para consultar saldos: ");  String senhaInput = teclado.nextLine();
+				                                cliente.consultarSaldos(senhaInput);
 				                                System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 				                                break;
 
@@ -123,7 +123,7 @@ public class Menu {
 
 				                                System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 				                                boolean continuarAlugando;
-				                                Transacao transacao = new Transacao(10, LocalDate.now(), LocalDate.now().plusDays(15), 0.0, 0, cliente);
+				                                Transacao transacao = new Transacao(10, 1.5, LocalDate.now(), LocalDate.now().plusDays(15), 0.0, 0, cliente);
 				                                do {
 				                                    System.out.print("\t 𝝣「 ✏ 」➜ Digite o título do filme que deseja alugar: ");
 				                                    String tituloInput = teclado.nextLine();
@@ -133,30 +133,27 @@ public class Menu {
 				                                    teclado.nextLine();
 				                                } while (continuarAlugando);
 				                                System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-				                                String continuarDevolvendo;
-				            				    do {
-				            				        System.out.print("\t 𝝣「 ✏ 」➜ Digite o título do filme que deseja devolver: "); 
-				            				        String tituloInputDevolucao = teclado.nextLine();
-				            				        
-				            				        Filme filmeF = acervo.procurarFilme(tituloInputDevolucao);
-				            				        
-				            				        if (filmeF != null) {
-				            				            DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-				            				            System.out.print("\t 𝝣「 ✏ 」➜ Digite a data que você devolveu (DD/MM/AAAA): "); 
-				            				            String data = teclado.next();
-				            				            LocalDate dataDevolvido = LocalDate.parse(data, dataFormato);
-				            				            transacao.getDataDevolver();
-				            				            if (dataDevolvido.isAfter(transacao.getDataDevolver())) {
-				            				                gerente.setMultado(true);
-				            				                System.out.print("\t 𝝣「 ⚠VEACO⚠ 」➜ Aviso! Você foi multado"); 
-				            				            }
-				            				            cliente.devolverFilme(filmeF);
-				            				        } else {
-				            				            System.out.println("\t 𝝣「 ✖ 」➜ Filme não encontrado!");
-				            				            return;
-				            				        } 
-				            				        continuarDevolvendo = teclado.nextLine();
-				            				    } while (continuarDevolvendo.equalsIgnoreCase("s"));
+				                                
+				                                System.out.print("\t 𝝣「 ✏ 」➜ Digite o título do filme que deseja devolver: "); 
+			            				        String tituloInputDevolucao = teclado.nextLine();
+			            				        
+			            				        Filme filmeF = acervo.procurarFilme(tituloInputDevolucao);
+			            				        
+			            				        if (filmeF != null) {
+			            				            DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			            				            System.out.print("\t 𝝣「 ✏ 」➜ Digite a data que você devolveu (DD/MM/AAAA): "); 
+			            				            String data = teclado.next();
+			            				            LocalDate dataDevolvido = LocalDate.parse(data, dataFormato);
+			            				            transacao.getDataDevolver();
+			            				            if (dataDevolvido.isAfter(transacao.getDataDevolver())) {
+			            				                gerente.setMultado(true);
+			            				                System.out.print("\t 𝝣「 ⚠VEACO⚠ 」➜ Aviso! Você foi multado"); 
+			            				            }
+			            				            cliente.devolverFilme(filmeF);
+			            				        } else {
+			            				            System.out.println("\t 𝝣「 ✖ 」➜ Filme não encontrado!");
+			            				            return;
+			            				        }
 				                                break;
 				                            case 5:
 				                                System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
@@ -244,14 +241,14 @@ public class Menu {
 				case 3:
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					System.out.print("\t 𝝣「 ✏ 」➜ Digite sua senha para consultar saldos: "); String senhaInput = teclado.next();
-					novoCliente.consultarSaldos(senhaInput, gerente.isMultado());
+					novoCliente.consultarSaldos(senhaInput);
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					return novoCliente;
 				case 4:
 					boolean continuarAlugando;
 				    Cliente clienteSelecionado = novoCliente; 
 
-				    Transacao transacao = new Transacao(10, LocalDate.now(), LocalDate.now().plusDays(15), 0.0, 0, clienteSelecionado);
+				    Transacao transacao = new Transacao(10, 1.5, LocalDate.now(), LocalDate.now().plusDays(15), 0.0, 0, clienteSelecionado);
 				    System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 				    try {
 				    	do {
@@ -267,31 +264,31 @@ public class Menu {
 						System.out.println("\t 𝝣「 ✖ 」➜ Entrada não booleana!, " + e.getMessage()); teclado.nextLine();
 					}
 				    
-				    String continuarDevolvendo;
-				    do {
-				        System.out.print("\t 𝝣「 ✏ 」➜ Digite o título do filme que deseja devolver: "); 
-				        String tituloInputDevolucao = teclado.nextLine();
-				        
-				        Filme filmeF = acervo.procurarFilme(tituloInputDevolucao);
-				        
-				        if (filmeF != null) {
-				            DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-				            System.out.print("\t 𝝣「 ✏ 」➜ Digite a data que você devolveu (DD/MM/AAAA): "); 
-				            String data = teclado.next();
-				            LocalDate dataDevolvido = LocalDate.parse(data, dataFormato);
-				            transacao.getDataDevolver();
-				            if (dataDevolvido.isAfter(transacao.getDataDevolver())) {
-				                gerente.setMultado(true);
-				                System.out.print("\t 𝝣「 ⚠VEACO⚠ 」➜ Aviso! Você foi multado"); 
-				            }
-				            novoCliente.devolverFilme(filmeF);
-				        } else {
-				            System.out.println("\t 𝝣「 ✖ 」➜ Filme não encontrado!");
-				            return novoCliente;
-				        } 
-				        continuarDevolvendo = teclado.nextLine();
-				    } while (continuarDevolvendo.equalsIgnoreCase("s")); 
-				    System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
+				    System.out.print("\t 𝝣「 ✏ 」➜ Digite o título do filme que deseja devolver: ");
+				    String tituloInputDevolucao = teclado.nextLine();
+
+				    Filme filmeF = acervo.procurarFilme(tituloInputDevolucao);
+
+				    if (filmeF != null) {
+				        DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				        System.out.print("\t 𝝣「 ✏ 」➜ Digite a data que você devolveu (DD/MM/AAAA): ");
+				        String data = teclado.next();
+				        LocalDate dataDevolvido = LocalDate.parse(data, dataFormato);
+
+				        if (dataDevolvido.isAfter(transacao.getDataDevolver())) {
+				            int diasAtraso = (int) ChronoUnit.DAYS.between(transacao.getDataDevolver(), dataDevolvido);
+				            transacao.setDiasAtraso(diasAtraso);
+				            double multa = diasAtraso * transacao.getTaxaMultaDiaria();
+				            transacao.setMulta(multa); 
+				            gerente.setMultado(true); 
+				            System.out.printf("\t 𝝣「⚠ 」➜ Aviso: Você foi multado! Dias de atraso: %d, Multa: R$ %.2f%n", diasAtraso, multa);
+				        }
+
+				       novoCliente.devolverFilme(filmeF); 
+				    } else {
+				        System.out.println("\t 𝝣「 ✖ 」➜ Filme não encontrado!");
+				    }
+
 				    return novoCliente;
 				case 5:
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");

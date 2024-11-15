@@ -1,9 +1,12 @@
 package negocio;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import dados.Acervo;
 import dados.Filme;
 import interfaceUsuario.Menu;
+import negocio.Transacao;
 
 public class Cliente {
 	private String cpf;
@@ -99,18 +102,30 @@ public class Cliente {
 	    }
 	}
 	
-	public double consultarSaldos(String senhaInput, boolean multado) { 
-		double saldoTotal = 0.0;
-		if (this.getSenha().trim().equals(senhaInput.trim())) {
-			Transacao transacao = null;
-			saldoTotal = transacao.calcularMulta(); 
-			multado = true;
-			System.out.println("\t 𝝣「 🧾 」➜ Multa: " + saldoTotal);
-			return saldoTotal;
-        }
-		else {
-			System.out.println("\t 𝝣「 ✖ 」➜ Senha incorreta! ");
-            return 0.0;
-		}
+	public double consultarSaldos(String senhaInput) {
+	    LocalDate dataEmprestimo = LocalDate.now(); 
+	    LocalDate dataDevolver = dataEmprestimo.plusDays(15);
+
+	    int diasAtraso = dataDevolver.isAfter(dataEmprestimo) ? 
+	                     (int) ChronoUnit.DAYS.between(dataDevolver, dataEmprestimo) : 
+	                     0;
+	    Transacao transacao = new Transacao(10, 1.5, dataEmprestimo, dataDevolver, 0.0, diasAtraso, null);
+
+	    double saldoTotal = transacao.getAluguelQuinzenal() + 
+	                        (transacao.getTaxaMultaDiaria() * transacao.getDiasAtraso());
+
+	    if (this.senha.trim().equals(senhaInput.trim())) {
+	        for (Transacao transacao1 : transacoes) {
+	            double multaAtual = transacao1.calcularMulta();
+	            saldoTotal += multaAtual + transacao1.getAluguelQuinzenal();
+	        }
+	        System.out.println("\t 𝝣「🧾 」➜ Saldo total devido (incluindo multas): " + saldoTotal);
+	        return saldoTotal;
+	    } else {
+	        System.out.println("\t 𝝣「 ✖ 」➜ Senha incorreta!");
+	        return saldoTotal;
+	    }
 	}
+
+
 }

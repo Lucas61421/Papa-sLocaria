@@ -14,19 +14,22 @@ public class Transacao {
 	private int diasAtraso;
 	private Cliente cliente;
 	
-	public Transacao(int aluguelQuinzenal, LocalDate dataEmprestimo, LocalDate dataDevolver, 
+	public Transacao(int aluguelQuinzenal, double taxaMultaDiaria, LocalDate dataEmprestimo, LocalDate dataDevolver, 
 			 double multa, int diasAtraso, Cliente cliente) {
 		this.aluguelQuinzenal = 10;
 		this.taxaMultaDiaria = 1.5;
 		this.dataEmprestimo = LocalDate.now();
 		this.dataDevolver = dataEmprestimo.plusDays(15);
-		this.multa = 0.0;
+		this.multa = multa;
 		this.diasAtraso = 0;
 		this.cliente = cliente;
 	}
 
 	public double getAluguelQuinzenal() { return aluguelQuinzenal; }
 	public void setAluguelQuinzenal(int aluguelQuinzenal) { this.aluguelQuinzenal = aluguelQuinzenal; }
+	
+	public double getTaxaMultaDiaria() { return taxaMultaDiaria; }
+	public void setTaxaMultaDiaria(double taxaMultaDiaria) { this.taxaMultaDiaria = taxaMultaDiaria; }
 
 	public LocalDate getDataEmprestimo() { return dataEmprestimo; }
 	public void setDataEmprestimo(LocalDate dataEmprestimo) { this.dataEmprestimo = dataEmprestimo; }
@@ -39,19 +42,18 @@ public class Transacao {
 
 	public int getDiasAtraso() { return diasAtraso; }
 	public void setDiasAtraso(int diasAtraso) { this.diasAtraso = diasAtraso; }
+	
+	public Cliente getCliente() {return cliente; }
+	public void setCliente(Cliente cliente) {this.cliente = cliente; }
 
 	
 	public double calcularMulta() {
-		if (dataDevolver.isAfter(dataEmprestimo)) {
-			diasAtraso = (int) ChronoUnit.DAYS.between(dataEmprestimo, dataDevolver);
-			if (diasAtraso > 0) {
-				multa = diasAtraso * taxaMultaDiaria;
-				multa += aluguelQuinzenal;
-			}
-		}
-		return multa;
+	    if (LocalDate.now().isAfter(dataDevolver)) {
+	        diasAtraso = (int) ChronoUnit.DAYS.between(dataDevolver, LocalDate.now());
+	        multa = diasAtraso * taxaMultaDiaria;
+	    }
+	    return multa;
 	}
-	
 	
 	public void gerarNotaFiscal(String tituloInput, Acervo acervo) {
 		Filme filme = acervo.procurarFilme(tituloInput);
