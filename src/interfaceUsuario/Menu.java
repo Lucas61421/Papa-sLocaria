@@ -33,7 +33,8 @@ public class Menu {
 		clientes.add(cliente1);
 		clientes.add(cliente2);
 		
-		Acervo acervo = new Acervo();
+		Acervo acervo = Acervo.getInstancia();
+
 		
 		do {
 			
@@ -350,13 +351,14 @@ public class Menu {
 	}
 	public static void entrarGerente() {
 		int escolha;
-	    Acervo acervo = new Acervo();
+		Acervo acervo = Acervo.getInstancia();
+
 		Scanner teclado = new Scanner(System.in);
 		Cliente cliente = new Cliente("171.171.171-71", "Keen Xong", "calmaCalabreso24", 22222222, "Calabresoacalmado@gmail.com", "Xangai",
 				"Fubuki", "Liberdade", 32, 41);
 
 
-		System.out.println("\t\t•| ⊱SELECIONE UMA AÇÃO ENTRE 1 E 4⊰ |•");
+		System.out.println("\t\t•| ⊱SELECIONE UMA AÇÃO ENTRE 1 E 3⊰ |•");
 		System.out.println("\t 𝝣「 1 」➜ Adicionar filme! \t\t");
 		System.out.println("\t 𝝣「 2 」➜ Remover filme! \t\t");
 		System.out.println("\t 𝝣「 3 」➜ Voltar ao menu! \t\t");
