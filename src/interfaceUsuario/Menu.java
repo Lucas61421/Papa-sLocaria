@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class Menu {
-
+	private static LocalDate dataDevolvidoGlobal;
 	public static void main(String[] args) {
 		int escolha;
 		ArrayList<Cliente> clientes = new ArrayList<>();
@@ -115,7 +115,7 @@ public class Menu {
 
 				                                System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 				                                System.out.print("\t 𝝣「 ✏ 」➜ Digite sua senha para consultar saldos: ");  String senhaInput = teclado.nextLine();
-				                                cliente.consultarSaldos(senhaInput);
+				                                cliente.consultarSaldos(senhaInput, dataDevolvidoGlobal);
 				                                System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 				                                break;
 
@@ -144,6 +144,8 @@ public class Menu {
 			            				            System.out.print("\t 𝝣「 ✏ 」➜ Digite a data que você devolveu (DD/MM/AAAA): "); 
 			            				            String data = teclado.next();
 			            				            LocalDate dataDevolvido = LocalDate.parse(data, dataFormato);
+			            				            dataDevolvidoGlobal = dataDevolvido;
+			            				            
 			            				            transacao.getDataDevolver();
 			            				            if (dataDevolvido.isAfter(transacao.getDataDevolver())) {
 			            				                gerente.setMultado(true);
@@ -241,7 +243,7 @@ public class Menu {
 				case 3:
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					System.out.print("\t 𝝣「 ✏ 」➜ Digite sua senha para consultar saldos: "); String senhaInput = teclado.next();
-					novoCliente.consultarSaldos(senhaInput);
+					novoCliente.consultarSaldos(senhaInput, dataDevolvidoGlobal);
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					return novoCliente;
 				case 4:
@@ -274,7 +276,8 @@ public class Menu {
 				        System.out.print("\t 𝝣「 ✏ 」➜ Digite a data que você devolveu (DD/MM/AAAA): ");
 				        String data = teclado.next();
 				        LocalDate dataDevolvido = LocalDate.parse(data, dataFormato);
-
+				        dataDevolvidoGlobal = dataDevolvido;
+				        
 				        if (dataDevolvido.isAfter(transacao.getDataDevolver())) {
 				            int diasAtraso = (int) ChronoUnit.DAYS.between(transacao.getDataDevolver(), dataDevolvido);
 				            transacao.setDiasAtraso(diasAtraso);
@@ -380,4 +383,6 @@ public class Menu {
 		} while(escolha != 3);
 		
 	}
+
+
 }

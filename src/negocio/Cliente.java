@@ -102,24 +102,20 @@ public class Cliente {
 	    }
 	}
 	
-	public double consultarSaldos(String senhaInput) {
+	public double consultarSaldos(String senhaInput, LocalDate dataDevolvido) {
 	    LocalDate dataEmprestimo = LocalDate.now(); 
 	    LocalDate dataDevolver = dataEmprestimo.plusDays(15);
 
-	    int diasAtraso = dataDevolver.isAfter(dataEmprestimo) ? 
-	                     (int) ChronoUnit.DAYS.between(dataDevolver, dataEmprestimo) : 
-	                     0;
+	    int diasAtraso = (int) ChronoUnit.DAYS.between(dataDevolver, dataDevolvido); 
+	    
 	    Transacao transacao = new Transacao(10, 1.5, dataEmprestimo, dataDevolver, 0.0, diasAtraso, null);
-
-	    double saldoTotal = transacao.getAluguelQuinzenal() + 
-	                        (transacao.getTaxaMultaDiaria() * transacao.getDiasAtraso());
+	    transacao.setDiasAtraso(diasAtraso);
+	    
+	    double multa = transacao.calcularMulta(dataDevolvido);
+        double saldoTotal = multa + transacao.getAluguelQuinzenal();
 
 	    if (this.senha.trim().equals(senhaInput.trim())) {
-	        for (Transacao transacao1 : transacoes) {
-	            double multaAtual = transacao1.calcularMulta();
-	            saldoTotal += multaAtual + transacao1.getAluguelQuinzenal();
-	        }
-	        System.out.println("\t 𝝣「🧾 」➜ Saldo total devido (incluindo multas): " + saldoTotal);
+	        System.out.println("\t 𝝣「🧾 」➜ Saldo total de débitos(incluindo multas): " + saldoTotal);
 	        return saldoTotal;
 	    } else {
 	        System.out.println("\t 𝝣「 ✖ 」➜ Senha incorreta!");

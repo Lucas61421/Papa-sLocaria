@@ -4,6 +4,7 @@ import java.time.temporal.ChronoUnit;
 
 import dados.Acervo;
 import dados.Filme;
+import interfaceUsuario.Menu;
 
 public class Transacao {
 	private int aluguelQuinzenal;
@@ -47,14 +48,17 @@ public class Transacao {
 	public void setCliente(Cliente cliente) {this.cliente = cliente; }
 
 	
-	public double calcularMulta() {
-	    if (LocalDate.now().isAfter(dataDevolver)) {
-	        diasAtraso = (int) ChronoUnit.DAYS.between(dataDevolver, LocalDate.now());
+	public double calcularMulta(LocalDate dataDevolvido) {
+	    if (dataDevolvido.isAfter(dataDevolver)) {
+	        int diasAtraso = (int) ChronoUnit.DAYS.between(dataDevolver, dataDevolvido); 
 	        multa = diasAtraso * taxaMultaDiaria;
+	    } else {
+	        diasAtraso = 0; 
+	        multa = 0.0;    
 	    }
-	    return multa;
+	    return multa; 
 	}
-	
+
 	public void gerarNotaFiscal(String tituloInput, Acervo acervo) {
 		Filme filme = acervo.procurarFilme(tituloInput);
 		if (filme != null && filme.isDisponivel()) {
