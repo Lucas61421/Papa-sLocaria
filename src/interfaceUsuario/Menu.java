@@ -26,8 +26,10 @@ public class Menu {
 				"Matsuya", "Liberdade", 99, 21);
 		Cliente cliente2 = new Cliente("171.171.171-71", "Keen Xong", "calmaCalabreso24", 22222222, "Calabresoacalmado@gmail.com", "Xangai",
 				"Fubuki", "Liberdade", 32, 41);
-		Gerente gerente = new Gerente("123.123.123-12", "Yotra", "esprega#esprega", 12345678, "yotraesprega@gmail.com", "Xangai",
-				"Fubuki", "Liberdade", 23, 37);
+		Gerente gerente = new Gerente("123.123.123-12", "Yotra", "esprega#esprega", 
+		                               12345678, "yotraesprega@gmail.com", "Xangai",
+		                               "Fubuki", "Liberdade", 23, 37, clientes);
+
 		clientes.add(cliente1);
 		clientes.add(cliente2);
 		
@@ -105,19 +107,24 @@ public class Menu {
 				                            case 2:
 
 				                                System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-				                                System.out.print("\t 𝝣「 ✏ 」➜ Digite seu CPF para buscar cadastro: ");
-				                                String cpfBusca = teclado.next();
+				                                System.out.print("\t 𝝣「 ✏ 」➜ Digite seu CPF para buscar cadastro: ");  String cpfBusca = teclado.next();
 				                                gerente.consultarCadastro(cpfBusca);
 				                                System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 				                                break;
 
-				                            case 3:
-
+				                            case 3: 
 				                                System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-				                                System.out.print("\t 𝝣「 ✏ 」➜ Digite sua senha para consultar saldos: ");  String senhaInput = teclado.nextLine();
-				                                cliente.consultarSaldos(senhaInput, dataDevolvidoGlobal);
+				                                System.out.print("\t 𝝣「 ✏ 」➜ Digite sua senha para consultar saldos: ");  
+				                                String senhaInput = teclado.nextLine();
+
+				                                if (dataDevolvidoGlobal == null) {
+				                                    System.out.println("\t 𝝣「 ✖ 」➜ Nenhuma devolução registrada. Realize um aluguel primeiro.");
+				                                } else {
+				                                    cliente.consultarSaldos(senhaInput, dataDevolvidoGlobal);
+				                                }
 				                                System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 				                                break;
+
 
 				                            case 4:
 
@@ -148,9 +155,13 @@ public class Menu {
 			            				            
 			            				            transacao.getDataDevolver();
 			            				            if (dataDevolvido.isAfter(transacao.getDataDevolver())) {
-			            				                gerente.setMultado(true);
-			            				                System.out.print("\t 𝝣「 ⚠VEACO⚠ 」➜ Aviso! Você foi multado"); 
-			            				            }
+			            					            int diasAtraso = (int) ChronoUnit.DAYS.between(transacao.getDataDevolver(), dataDevolvido);
+			            					            transacao.setDiasAtraso(diasAtraso);
+			            					            double multa = diasAtraso * transacao.getTaxaMultaDiaria();
+			            					            transacao.setMulta(multa); 
+			            					            gerente.setMultado(true); 
+			            					            System.out.printf("\t 𝝣「 ⚠ VEACO ⚠ 」➜ Aviso: Você foi multado! Dias de atraso: %d, Multa: R$ %.2f%n", diasAtraso, multa);
+			            					        }
 			            				            cliente.devolverFilme(filmeF);
 			            				        } else {
 			            				            System.out.println("\t 𝝣「 ✖ 」➜ Filme não encontrado!");
@@ -204,8 +215,10 @@ public class Menu {
 		Scanner teclado = new Scanner(System.in);
 		Cliente cliente1 = new Cliente("109.109.109-09", "Xuu Lee", "setembr0Amarelo", 11111111, "Xuuessemes@gmail.com", "Xangai", 
 				"Matsuya", "Liberdade", 99, 21);
-		Gerente gerente = new Gerente("123.123.123-12", "Yotra", "esprega#esprega", 12345678 , "yotraesprega@gmail.com", 
-				"Xangai", "Fubuki", "Liberdade", 23, 37);
+		Gerente gerente = new Gerente("123.123.123-12", "Yotra", "esprega#esprega", 
+		                               12345678, "yotraesprega@gmail.com", "Xangai",
+		                               "Fubuki", "Liberdade", 23, 37, clientes);
+
 		ArrayList<Cliente> clientesInput = new ArrayList<>();
 
 		Cliente novoCliente = gerente.criarCadastro(teclado, clientesInput);  
@@ -236,16 +249,24 @@ public class Menu {
 					return novoCliente;
 				case 2:
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-					System.out.print("\t 𝝣「 ✏ 」➜ Digite seu CPF para buscar cadastro: "); String cpfInput = teclado.next();
-					gerente.consultarCadastro(cpfInput);
+					System.out.print("\t 𝝣「 ✏ 」➜ Digite seu CPF para buscar cadastro: ");
+                    String cpfBusca = teclado.next();
+                    gerente.consultarCadastro(cpfBusca);
 					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 					return novoCliente;
-				case 3:
-					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-					System.out.print("\t 𝝣「 ✏ 」➜ Digite sua senha para consultar saldos: "); String senhaInput = teclado.next();
-					novoCliente.consultarSaldos(senhaInput, dataDevolvidoGlobal);
-					System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
-					return novoCliente;
+				case 3: 
+				    System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
+				    System.out.print("\t 𝝣「 ✏ 」➜ Digite sua senha para consultar saldos: ");  
+				    String senhaInput = teclado.nextLine();
+
+				    if (dataDevolvidoGlobal == null) {
+				        System.out.println("\t 𝝣「 ✖ 」➜ Nenhuma devolução registrada. Realize um aluguel primeiro.");
+				    } else {
+				        novoCliente.consultarSaldos(senhaInput, dataDevolvidoGlobal);
+				    }
+				    System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
+				    return novoCliente;
+
 				case 4:
 					boolean continuarAlugando;
 				    Cliente clienteSelecionado = novoCliente; 
@@ -284,7 +305,7 @@ public class Menu {
 				            double multa = diasAtraso * transacao.getTaxaMultaDiaria();
 				            transacao.setMulta(multa); 
 				            gerente.setMultado(true); 
-				            System.out.printf("\t 𝝣「⚠ 」➜ Aviso: Você foi multado! Dias de atraso: %d, Multa: R$ %.2f%n", diasAtraso, multa);
+				            System.out.printf("\t 𝝣「 ⚠ VEACO ⚠ 」➜ Aviso: Você foi multado! Dias de atraso: %d, Multa: R$ %.2f%n", diasAtraso, multa);
 				        }
 
 				       novoCliente.devolverFilme(filmeF); 
@@ -314,8 +335,10 @@ public class Menu {
 	public static void atendimentoGerente() {
 		ArrayList<Cliente> clientes = new ArrayList<>();
 		Scanner teclado = new Scanner(System.in);
-		Gerente gerente = new Gerente("123.123.123-12", "Yotra", "esprega#esprega", 12345678 , "yotraesprega@gmail.com",
-				"Xangai", "Fubuki", "Liberdade", 23, 37);
+		Gerente gerente = new Gerente("123.123.123-12", "Yotra", "esprega#esprega", 
+		                               12345678, "yotraesprega@gmail.com", "Xangai",
+		                               "Fubuki", "Liberdade", 23, 37, clientes);
+
 		System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 		System.out.println("\t\t•| ⊱SELECIONE UMA AÇÃO ENTRE 1 E 6⊰ |•");
 		System.out.println("\t 𝝣「 1 」➜ Procurar filme! ");
@@ -331,8 +354,7 @@ public class Menu {
 		Scanner teclado = new Scanner(System.in);
 		Cliente cliente = new Cliente("171.171.171-71", "Keen Xong", "calmaCalabreso24", 22222222, "Calabresoacalmado@gmail.com", "Xangai",
 				"Fubuki", "Liberdade", 32, 41);
-		Gerente gerente = new Gerente("123.123.123-12","Yotra", "esprega#esprega", 12345678 , "yotraesprega@gmail.com", 
-				"Xangai", "Fubuki", "Liberdade", 23, 37);
+
 
 		System.out.println("\t\t•| ⊱SELECIONE UMA AÇÃO ENTRE 1 E 4⊰ |•");
 		System.out.println("\t 𝝣「 1 」➜ Adicionar filme! \t\t");

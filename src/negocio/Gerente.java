@@ -12,12 +12,15 @@ public class Gerente extends Cliente {
 	private boolean multado;
 	private ArrayList<Cliente> clientes;
 
-	
-	public Gerente(String cpf, String nome, String senha, long telefone, String email, String cidade, String rua, String bairro, int numCasa, int idade) {
-		super(cpf, nome, senha, telefone, email, cidade, rua, bairro, numCasa, idade);
-		this.multado = false;
-		this.clientes = new ArrayList<>();
+
+	public Gerente(String cpf, String nome, String senha, long telefone, String email, 
+	               String cidade, String rua, String bairro, int numCasa, int idade, 
+	               ArrayList<Cliente> clientesCompartilhados) {
+	    super(cpf, nome, senha, telefone, email, cidade, rua, bairro, numCasa, idade);
+	    this.multado = false;
+	    this.clientes = clientesCompartilhados; 
 	}
+
 	
 	
 	public boolean isMultado() { return multado; }
@@ -239,9 +242,9 @@ public class Gerente extends Cliente {
 	    }
 	}
 	
-	public Cliente consultarCadastro(String cpfInput) { 
+	public Cliente consultarCadastro(String cpfBusca) { 
 		for (Cliente cliente : clientes) {
-            if (cliente.getCpf().equals(cpfInput)) {
+            if (cliente.getCpf().equals(cpfBusca)) {
             	System.out.println("\t 𝝣「 📋 」➜ Cadastro: ");
         		System.out.print("\n\t 𝝣「 🪪 」➜ CPF: " + cliente.getCpf());
         		
@@ -252,7 +255,6 @@ public class Gerente extends Cliente {
         		System.out.print("\n\t 𝝣「 📞 」➜ Telefone: " + cliente.getTelefone()); 
                 
         		System.out.print("\n\t 𝝣「 📧 」➜ Email: " + cliente.getEmail()); 
-        		 
         		
         		System.out.print("\n\t 𝝣「 🌉 」➜ Cidade: " + cliente.getCidade()); 
         		
@@ -260,9 +262,12 @@ public class Gerente extends Cliente {
         		
         		System.out.print("\n\t 𝝣「 🌆 」➜ Bairro: " + cliente.getBairro()); 
         		
-        		System.out.print("\n\t 𝝣「 🔢 」➜ Nº Casa: " + cliente.getNumCasa()); 	
+        		System.out.print("\n\t 𝝣「 🔢 」➜ Nº Casa: " + cliente.getNumCasa());
+        		
+        		return cliente;
             }
 		}
+		System.out.println("\t 𝝣「 ✖ 」➜ Cliente não encontrado.");
 		return null;
   }
 }
