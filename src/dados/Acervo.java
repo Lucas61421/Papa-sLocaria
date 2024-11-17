@@ -170,7 +170,7 @@ public class Acervo {
 
 		    boolean filmeEncontrado = false;
 
-		    Iterator<Filme> iterator = filmes.iterator(); // Certifique-se de usar a mesma lista
+		    Iterator<Filme> iterator = filmes.iterator(); 
 
 		    while (iterator.hasNext()) {
 		        Filme filme = iterator.next();

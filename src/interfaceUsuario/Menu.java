@@ -175,7 +175,8 @@ public class Menu {
 				                                System.out.println("\n\t「𝝣🎬」============================================================「𝝣🎬」");
 				                                break;
 				                            case 6:
-				                                System.out.println("\t 𝝣「 ↩ 」➜ Voltando para o menu principal!");
+				                                System.out.println("\t 𝝣「 ↩ 」➜ Operação finalizada, obrigado pela preferência!");
+				                                System.out.println("\n\t「𝝣⌧」==============================⌧==============================「𝝣⌧」");
 				                                break;
 				                            default:
 				                                System.out.println("\t 𝝣「 ✖ 」➜ Opção inválida!");
@@ -193,7 +194,8 @@ public class Menu {
 				    } while (!cpfValido && !cpfEncontrado); 
 				    break;
 			   case 4:
-				   System.out.println("\t 𝝣「 🖥 」➜ Operação finalizada. Até logo! ");
+				   System.out.println("\t 𝝣「 ↩ 」➜ Operação finalizada, obrigado pela preferência!");
+                   System.out.println("\n\t「𝝣⌧」==============================⌧==============================「𝝣⌧」");
 				   escolha = 3;
 				   break;
 			   default:
@@ -347,7 +349,7 @@ public class Menu {
 		System.out.println("\t 𝝣「 3 」➜ Consultar saldos! ");
 		System.out.println("\t 𝝣「 4 」➜ Alugar filme(s)! ");
 		System.out.println("\t 𝝣「 5 」➜ Consultar acervo! ");
-		System.out.println("\t 𝝣「 6 」➜ Voltar ao menu principal! "); 
+		System.out.println("\t 𝝣「 6 」➜ Finalizar operação! "); 
 	}
 	public static void entrarGerente() {
 		int escolha;
@@ -361,7 +363,7 @@ public class Menu {
 		System.out.println("\t\t•| ⊱SELECIONE UMA AÇÃO ENTRE 1 E 3⊰ |•");
 		System.out.println("\t 𝝣「 1 」➜ Adicionar filme! \t\t");
 		System.out.println("\t 𝝣「 2 」➜ Remover filme! \t\t");
-		System.out.println("\t 𝝣「 3 」➜ Voltar ao menu! \t\t");
+		System.out.println("\t 𝝣「 3 」➜ Voltar ao menu principal! \t\t");
 		
 		System.out.print("\t 𝝣「 ✏ 」➜ Escolha: "); escolha = teclado.nextInt();
 		do {
